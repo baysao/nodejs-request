@@ -1,0 +1,19 @@
+{
+  "name": "webix-request",
+  "version": "1.0.0",
+  "description": "Package for communication between the webix controller and client side.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webix-hub/nodejs-request.git"
+  },
+  "author": "EgorLazarovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webix-hub/nodejs-request/issues"
+  },
+  "homepage": "https://github.com/webix-hub/nodejs-request"
+}
