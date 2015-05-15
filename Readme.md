@@ -20,24 +20,25 @@ How to use
     var webix_connector = require("webix-connector");
 ```
 
-Handle request object and send result to client.
+```js
+    //Handle request object and send result to client.
+    webix_connector.processRequest(request, response, callback);
+```
 
 - request - object of request.
 - response - object of response.
 - callback - function which provide request data and function - resolver.
 
-    Request data has parameters: 
-        - id - field 'id' from request body,
-        - status - status of data, it's determined by request body field "webix_operation" else set "read".
-            For change order operation needed field "webix_move_id" from request body with id of data,
-            and request data parameter 'status' will be set "move".
-        - data - request body data without fields "webix_operation" and "id".
- 
-    Resolver has one parameter - hash of data. This data will be send to client.
+Request data in callback has next parameters: 
 
-```js
-    webix_connector.processRequest(request, response, callback);
-```
+- id - field 'id' from request body,
+- status - status of data, it's determined by request body field "webix_operation" else set "read".
+    For change order operation needed field "webix_move_id" from request body with id of data,
+    and request data parameter 'status' will be set "move".
+- data - request body data without fields "webix_operation" and "id".
+ 
+Resolver has one parameter - hash of data. This data will be send to client.
+
 
 ```js
     /*
@@ -52,7 +53,7 @@ Handle request object and send result to client.
             for status = "error" - error message, for status = "read" - data, for other - object like {id: data.source_id, newid: data.target_id, status: "success"}
     */
     webix_connector.sendResponse(data, response);
-    ```
+```
 
 That is it.
 
