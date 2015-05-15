@@ -7,33 +7,39 @@ This package is part of webix-data package.
 How to use
 -----------
 
-- Installation
+### Installation
 
-    ```sh
+```sh
     npm install webix-connector
-    ```
+```
 
-- How to use:
+### API
 
-    ```js
+```js
     //Init handler.
-    var webix_connector = require("webix-connector);
+    var webix_connector = require("webix-connector");
+```
 
-    //API
-    /*
-        Handle request object and send result to client.
-        - request - object of request.
-        - response - object of response.
-        - callback - function which provide request data and function - resolver.
-            Request data has parameters: id - field 'id' from request body,
-                status - status of data, it's determined by request body field "webix_operation" else set "read".
-                    For change order operation needed field "webix_move_id" from request body with id of data,
-                    and request data parameter 'status' will be set "move".
-                data - request body data without fields "webix_operation" and "id".
-            Resolver has one parameter - hash of data. This data will be send to client.
-    */
+Handle request object and send result to client.
+
+- request - object of request.
+- response - object of response.
+- callback - function which provide request data and function - resolver.
+
+    Request data has parameters: 
+        - id - field 'id' from request body,
+        - status - status of data, it's determined by request body field "webix_operation" else set "read".
+            For change order operation needed field "webix_move_id" from request body with id of data,
+            and request data parameter 'status' will be set "move".
+        - data - request body data without fields "webix_operation" and "id".
+ 
+    Resolver has one parameter - hash of data. This data will be send to client.
+
+```js
     webix_connector.processRequest(request, response, callback);
+```
 
+```js
     /*
         Send data to client.
         - data - data of response. Contains require property 'status' and optional properties:
