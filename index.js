@@ -1,3 +1,9 @@
+/**
+ * Get request and send response when data is processed.
+ * @param {Object} request
+ * @param {Object} response
+ * @param {function} callback
+ */
 function processRequest(request, response, callback) {
     if(!request.hasOwnProperty("body"))
         throw new Error("Body-parser for express might wasn't included.");
@@ -46,6 +52,14 @@ function processRequest(request, response, callback) {
     callback(_parse(data), _resolver);
 }
 
+/**
+ * Send response for data.
+ * @param {Object} data - data of response. Contains require property status and optional properties:
+ *      error (if status = "error") - object of error,
+ *      data (if status = "read") - hash of data,
+ *      source_id, target_id (if status != "error"|"read") - ids of handled data.
+ * @param {Object} response - object of response
+ */
 function sendResponse(data, response) {
     var status = data.status;
     if(status == "error") {
