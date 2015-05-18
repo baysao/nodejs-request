@@ -51,10 +51,10 @@ webix_request.sendResponse(data, response);
     - source_id, target_id (if status != "error"|"read") - ids of handled data.
 - response - object of response.
 
-*Method send json to client:
-- for status = "error" - error message.
-- for status = "read" - data.
-- for other - object like {id: data.source_id, newid: data.target_id, status: "success"}.*
+*Method send json to client:*
+- *for status = "error" - error message.*
+- *for status = "read" - data.*
+- *for other - object like {id: data.source_id, newid: data.target_id, status: "success"}.*
 
 That is it.
 
