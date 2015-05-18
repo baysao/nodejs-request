@@ -10,19 +10,19 @@ How to use
 ### Installation
 
 ```sh
-    npm install webix-request
+npm install webix-request
 ```
 
 ### API
 
 ```js
-    //Init handler.
-    var webix_connector = require("webix-request");
+//Init handler.
+var webix_request = require("webix-request");
 ```
 
 ```js
-    //Handle request object and send result to client.
-    webix_connector.processRequest(request, response, callback);
+//Handle request object and send result to client.
+webix_request.processRequest(request, response, callback);
 ```
 
 - request - object of request.
@@ -41,8 +41,8 @@ Resolver has one parameter - hash of data. This data will be send to client.
 
 
 ```js
-    //Send data to client.
-    webix_connector.sendResponse(data, response);
+//Send data to client.
+webix_request.sendResponse(data, response);
 ```
 
 - data - data of response. Contains require property 'status' and optional properties:
