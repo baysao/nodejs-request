@@ -31,7 +31,7 @@ webix_request.processRequest(request, response, callback);
 
 Request data in callback has next parameters: 
 
-- id - field 'id' from request body,
+- id - field 'id' from request body.
 - status - status of data, it's determined by request body field "webix_operation" else set "read".
     For change order operation needed field "webix_move_id" from request body with id of data,
     and request data parameter 'status' will be set "move".
@@ -46,15 +46,15 @@ webix_request.sendResponse(data, response);
 ```
 
 - data - data of response. Contains require property 'status' and optional properties:
-    - error (if status = "error") - object of error,
-    - data (if status = "read") - hash of data,
+    - error (if status = "error") - object of error.
+    - data (if status = "read") - hash of data.
     - source_id, target_id (if status != "error"|"read") - ids of handled data.
 - response - object of response.
 
-Method send json to client:
-    - for status = "error" - error message,
-    - for status = "read" - data,
-    - for other - object like {id: data.source_id, newid: data.target_id, status: "success"}
+*Method send json to client:
+- for status = "error" - error message.
+- for status = "read" - data.
+- for other - object like {id: data.source_id, newid: data.target_id, status: "success"}.*
 
 That is it.
 
