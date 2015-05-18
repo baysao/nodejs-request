@@ -1,7 +1,7 @@
-npm package webix-connector.
+npm package webix-request.
 ================================
 
-Handling communication between [webix-data] package (https://github.com/webix-hub/nodejs-data) and client side.
+Handling communication between [webix-data] (https://github.com/webix-hub/nodejs-data) package and client side.
 This package is part of webix-data package.
 
 How to use
@@ -10,14 +10,14 @@ How to use
 ### Installation
 
 ```sh
-    npm install webix-connector
+    npm install webix-request
 ```
 
 ### API
 
 ```js
     //Init handler.
-    var webix_connector = require("webix-connector");
+    var webix_connector = require("webix-request");
 ```
 
 ```js
@@ -41,19 +41,20 @@ Resolver has one parameter - hash of data. This data will be send to client.
 
 
 ```js
-    /*
-        Send data to client.
-        - data - data of response. Contains require property 'status' and optional properties:
-            error (if status = "error") - object of error,
-            data (if status = "read") - hash of data,
-            source_id, target_id (if status != "error"|"read") - ids of handled data.
-        - response - object of response.
-
-        Method send json to client:
-            for status = "error" - error message, for status = "read" - data, for other - object like {id: data.source_id, newid: data.target_id, status: "success"}
-    */
+    //Send data to client.
     webix_connector.sendResponse(data, response);
 ```
+
+- data - data of response. Contains require property 'status' and optional properties:
+    - error (if status = "error") - object of error,
+    - data (if status = "read") - hash of data,
+    - source_id, target_id (if status != "error"|"read") - ids of handled data.
+- response - object of response.
+
+Method send json to client:
+    - for status = "error" - error message,
+    - for status = "read" - data,
+    - for other - object like {id: data.source_id, newid: data.target_id, status: "success"}
 
 That is it.
 
