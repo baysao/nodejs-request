@@ -4,7 +4,10 @@
  * @param {Object} response
  * @param {function} callback
  */
-function processRequest(request, response, callback) {
+function processRequest(state, callback) {
+    var request = state.request,
+        response = state.response;
+
     if(!request.hasOwnProperty("body"))
         throw new Error("Body-parser for express might wasn't included.");
 
@@ -12,10 +15,6 @@ function processRequest(request, response, callback) {
         data = data || {};
 
         var parsedData = {};
-
-        parsedData.id = (data.id || "").toString();
-        delete data.id;
-
         parsedData.action = data.webix_operation || "read";
         delete data.webix_operation;
 
@@ -31,7 +30,7 @@ function processRequest(request, response, callback) {
         return parsedData;
     }
 
-    var data = request.body,
+    var data = (request.method == "GET") ? request.query : request.body,
         counter = 0,
         countResolvers = null,
         resolversData = [];
