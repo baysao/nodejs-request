@@ -9,46 +9,32 @@ function processRequest(state, callback) {
         response = state.response;
 
     if(!request.hasOwnProperty("body"))
-        throw new Error("Body-parser for express might wasn't included.");
+        throw new Error("You need to enable body parser for express.");
 
-    function _parse(data) {
-        data = data || {};
+    var data = (request.method == "GET") ? request.query : request.body;
 
-        var parsedData = {};
-        parsedData.action = data.webix_operation || "read";
-        delete data.webix_operation;
+    callback(parseData(data), function(result) {
+        sendResponse(result, response);
+    });
+}
 
-        if(data.hasOwnProperty("webix_move_id")) {
-            parsedData.action = "move";
-            parsedData.move_id = data.webix_move_id;
-            delete data.webix_move_id;
-            delete data.webix_move_index;
-            delete data.webix_move_parent;
-        }
+function parseData(data) {
+    data = data || {};
 
-        parsedData.data = data;
-        return parsedData;
+    var parsedData = {};
+    parsedData.action = data.webix_operation || "read";
+    delete data.webix_operation;
+
+    if(data.hasOwnProperty("webix_move_id")) {
+        parsedData.action = "move";
+        parsedData.move_id = data.webix_move_id;
+        delete data.webix_move_id;
+        delete data.webix_move_index;
+        delete data.webix_move_parent;
     }
 
-    var data = (request.method == "GET") ? request.query : request.body,
-        counter = 0,
-        countResolvers = null,
-        resolversData = [];
-
-    function _resolver(data) {
-        resolversData.push(data);
-
-        if(countResolvers == null) {
-            sendResponse(data, response);
-            return;
-        }
-
-        counter++;
-        if(counter == countResolvers)
-            sendResponse(resolversData, response);
-    }
-
-    callback(_parse(data), _resolver);
+    parsedData.data = data;
+    return parsedData;
 }
 
 /**
