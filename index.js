@@ -57,13 +57,10 @@ function sendResponse(data, response) {
         return;
     }
 
-    var resultData = {
+    response.json({
         id: data.source_id,
-        newid: data.target_id,
         status: "success"
-    };
-
-    response.json(resultData);
+    });
 }
 
 module.exports = {
