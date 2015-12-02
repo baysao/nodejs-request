@@ -8,7 +8,7 @@ function processRequest(state, callback) {
     var request = state.request,
         response = state.response;
 
-    if(!request.hasOwnProperty("body"))
+    if (!request.hasOwnProperty("body"))
         throw new Error("Body-parser for express might wasn't included.");
 
     function _parse(data) {
@@ -18,7 +18,7 @@ function processRequest(state, callback) {
         parsedData.action = data.webix_operation || "read";
         delete data.webix_operation;
 
-        if(data.hasOwnProperty("webix_move_id")) {
+        if (data.hasOwnProperty("webix_move_id")) {
             parsedData.action = "move";
             parsedData.move_id = data.webix_move_id;
             delete data.webix_move_id;
@@ -38,13 +38,13 @@ function processRequest(state, callback) {
     function _resolver(data) {
         resolversData.push(data);
 
-        if(countResolvers == null) {
+        if (countResolvers == null) {
             sendResponse(data, response);
             return;
         }
 
         counter++;
-        if(counter == countResolvers)
+        if (counter == countResolvers)
             sendResponse(resolversData, response);
     }
 
@@ -60,13 +60,20 @@ function processRequest(state, callback) {
  * @param {Object} response - object of response
  */
 function sendResponse(data, response) {
+    if (!response.json) {
+        response.json = function(obj) {
+            response.setHeader("Content-type", "application/json");
+            response.end(JSON.stringify(obj, null, null));
+        }
+    }
+
     var status = data.status;
-    if(status == "error") {
+    if (status == "error") {
         response.json(data.error.message);
         throw data.error;
     }
 
-    if(status == "read") {
+    if (status == "read") {
         response.json(data.data);
         return;
     }
